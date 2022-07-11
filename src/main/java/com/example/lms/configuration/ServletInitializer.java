@@ -1,7 +1,9 @@
-package com.example.lms;
+package com.example.lms.configuration;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+import com.example.lms.LmsApplication;
 
 public class ServletInitializer extends SpringBootServletInitializer {
 

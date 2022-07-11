@@ -1,8 +1,10 @@
 package com.example.lms.member.service;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import com.example.lms.member.model.MemberInput;
 
-public interface MemberService {
+public interface MemberService extends UserDetailsService {
 
 	boolean register(MemberInput memberInput);
 	

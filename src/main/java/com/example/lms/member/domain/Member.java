@@ -26,10 +26,12 @@ public class Member {
 	private String userName;
 	private String phone;
 	private String password;
-
 	private LocalDateTime createAt; 
 	
 	private boolean emailAuthYn;
 	private LocalDateTime emailAuthAt;
 	private String eamilAuthKey;
+	
+	private String resetPasswordKey;
+	private LocalDateTime resetPasswordLimitAt;
 }

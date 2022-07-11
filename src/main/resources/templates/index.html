@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title> Main LMS </title>
@@ -7,17 +7,7 @@
 <body>
 	<h1> Main LMS </h1>
 	
-	<div>
-		<a href="/member/register">회원 가입</a>
-		|
-		<a href="/member/info">회원 정보</a>
-		|
-		<a href="/member/login">로그인</a>
-		|
-		<a href="/member/logout">로그아웃</a>
-	</div>
-	<hr/>
+	<div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
 	
-
 </body>
 </html>

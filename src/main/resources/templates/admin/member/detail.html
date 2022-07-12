@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>관리자 화면</title>
+	<style>
+		.detail table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.detail table th, .detail table td {
+			border: solid 1px #000;
+		}
+	</style>
+</head>
+<body>
+	<h1>관리자 회원 관리 - 회원 상세 정보</h1>
+	<div>
+		<a href="/admin/main.do"> 관리자 메인 </a>
+		|
+		<a href="/admin/member/list.do"> 회원 관리 </a>
+		|
+		<a href="#"> 카테고리 관리 </a>
+		|
+		<a href="#"> 강의 관리 </a>
+		|
+		<a href="/member/logout"> 로그아웃 </a>
+		<br/>
+		<hr/>
+	</div>
+	
+	<div class="detail">
+		<table>
+			<tbody>
+				<tr>
+					<th>아이디</th>
+					<td>
+						<p th:text="${member.userId}"></p>
+					</td>
+				</tr>
+				<tr>
+					<th>이름</th>
+					<td>
+						<p th:text="${member.userName}"></p>
+					</td>
+				</tr>
+				<tr>
+					<th>연락처</th>
+					<td>
+						<p th:text="${member.phone}"></p>
+					</td>
+				</tr>
+				<tr>
+					<th>가입일</th>
+					<td>
+						<p th:text="${member.createAt}"></p>
+					</td>
+				</tr>
+				<tr>
+					<th>이메일 인증</th>
+					<td>
+						<p th:text="${member.emailAuthYn}"></p>
+					</td>
+				</tr>
+				<tr>
+					<th>관리자 여부</th>
+					<td>
+						<p th:text="${member.adminYn}"></p>
+					</td>
+				</tr>
+			</tbody>
+		</table>	
+		<div>
+			<a href="list.do">목록</a>
+		</div>
+	</div>
+</body>
+</html>

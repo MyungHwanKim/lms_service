@@ -13,6 +13,8 @@ public class MemberParam {
 	String searchType;
 	String searchValue;
 	
+	String userId;
+	
 	public long getPageStart() {
 		init();
 		return (pageIndex - 1) * pageSize;

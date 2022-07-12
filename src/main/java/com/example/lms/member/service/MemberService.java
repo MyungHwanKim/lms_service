@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.example.lms.admin.dto.MemberDto;
+import com.example.lms.admin.model.MemberParam;
 import com.example.lms.member.model.MemberInput;
 import com.example.lms.member.model.ResetPasswordInput;
 
@@ -35,5 +36,5 @@ public interface MemberService extends UserDetailsService {
 	/*
 	 * 회원 목록 리턴(관리자에서만 사용 가능)
 	 */
-	List<MemberDto> list();
+	List<MemberDto> list(MemberParam memberParam);
 }

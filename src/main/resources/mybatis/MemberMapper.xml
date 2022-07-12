@@ -4,10 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.lms.admin.mapper.MemberMapper">
 
-  <select id="selectList" resultType="com.example.lms.admin.dto.MemberDto">
+  <select id="selectList" 
+  			parameterType="com.example.lms.admin.model.MemberParam"
+  			resultType="com.example.lms.admin.dto.MemberDto">
   
     SELECT *
 	FROM MEMBER
+	where 1 = 1
+	
+	<if test="searchType != null and searchValue != null">
+    	<choose>
+		    <when test="searchType == 'userId'">
+				and user_id like concat('%', #{searchValue}, '%')
+		    </when>
+		    <when test="searchType == 'userName'">
+				and user_name like concat('%', #{searchValue}, '%')
+		    </when>
+		    <when test="searchType == 'phone'">
+				and phone like concat('%', #{searchValue}, '%')
+		    </when>
+		    <otherwise>
+				and 
+				(
+					user_id like concat('%', #{searchValue}, '%')
+					or
+					user_name like concat('%', #{searchValue}, '%')
+					or
+					phone like concat('%', #{searchValue}, '%')
+				)
+		    </otherwise>
+  		</choose>
+  	</if>
+  
+	
+  
 	limit 0, 10
 	
   </select>

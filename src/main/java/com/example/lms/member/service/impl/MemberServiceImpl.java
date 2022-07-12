@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.lms.admin.dto.MemberDto;
 import com.example.lms.admin.mapper.MemberMapper;
+import com.example.lms.admin.model.MemberParam;
 import com.example.lms.components.MailComponents;
 import com.example.lms.member.domain.Member;
 import com.example.lms.member.exception.MemberNotEmailAuthException;
@@ -171,10 +172,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public List<MemberDto> list() {
+	public List<MemberDto> list(MemberParam memberParam) {
 		
-		MemberDto memberDto = new MemberDto();
-		List<MemberDto> list = memberMapper.selectList(memberDto);
+		List<MemberDto> list = memberMapper.selectList(memberParam);
 		return list;
 		
 //		return memberRepository.findAll();

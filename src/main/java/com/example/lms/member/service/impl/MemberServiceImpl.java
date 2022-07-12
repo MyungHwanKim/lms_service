@@ -21,6 +21,7 @@ import com.example.lms.admin.model.MemberParam;
 import com.example.lms.components.MailComponents;
 import com.example.lms.member.domain.Member;
 import com.example.lms.member.exception.MemberNotEmailAuthException;
+import com.example.lms.member.exception.MemberStopUserException;
 import com.example.lms.member.model.MemberInput;
 import com.example.lms.member.model.ResetPasswordInput;
 import com.example.lms.member.repository.MemberRepository;
@@ -59,6 +60,7 @@ public class MemberServiceImpl implements MemberService {
 				.createAt(LocalDateTime.now())
 				.emailAuthYn(false)
 				.eamilAuthKey(uuid)
+				.userStatus(Member.MEMBER_STATUS_REQ)
 				.build();
 		
 		memberRepository.save(member);
@@ -87,6 +89,7 @@ public class MemberServiceImpl implements MemberService {
 			return false;
 		}
 		
+		member.setUserStatus(Member.MEMBER_STATUS_ING);
 		member.setEmailAuthYn(true);
 		member.setEmailAuthAt(LocalDateTime.now());
 		memberRepository.save(member);
@@ -204,6 +207,37 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
+	public boolean updateStatus(String userId, String userStatus) {
+		Optional<Member> optionalMemeber = memberRepository.findById(userId);
+		if (!optionalMemeber.isPresent()) {
+			throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
+		}
+		
+		Member member = optionalMemeber.get();
+		
+		member.setUserStatus(userStatus);
+		memberRepository.save(member);
+		
+		return true;
+	}
+	
+	@Override
+	public boolean updatePassword(String userId, String password) {
+		Optional<Member> optionalMemeber = memberRepository.findById(userId);
+		if (!optionalMemeber.isPresent()) {
+			throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
+		}
+		
+		Member member = optionalMemeber.get();
+		
+		String encPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+		member.setPassword(encPassword);
+		memberRepository.save(member);
+		
+		return true;
+	}
+	
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		Optional<Member> optionalMemeber = memberRepository.findById(username);
@@ -213,8 +247,12 @@ public class MemberServiceImpl implements MemberService {
 		
 		Member member = optionalMemeber.get();
 		
-		if (!member.isEmailAuthYn()) {
+		if (Member.MEMBER_STATUS_REQ.equals(member.getUserStatus())) {
 			throw new MemberNotEmailAuthException("이메일 활성화 이후에 로그인을 해주세요.");
+		}
+		
+		if (Member.MEMBER_STATUS_STOP.equals(member.getUserStatus())) {
+			throw new MemberStopUserException("정지된 회원입니다.");
 		}
 		
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<>();

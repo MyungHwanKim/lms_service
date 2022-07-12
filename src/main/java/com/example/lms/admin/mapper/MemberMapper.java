@@ -10,5 +10,6 @@ import com.example.lms.admin.model.MemberParam;
 @Mapper
 public interface MemberMapper {
 
+	long selectListCount(MemberParam memberParam);
 	List<MemberDto> selectList(MemberParam memberParam);
 }

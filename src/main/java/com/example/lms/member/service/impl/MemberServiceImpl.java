@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.example.lms.admin.dto.MemberDto;
 import com.example.lms.admin.mapper.MemberMapper;
@@ -174,7 +175,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<MemberDto> list(MemberParam memberParam) {
 		
+		long totalCount = memberMapper.selectListCount(memberParam);
 		List<MemberDto> list = memberMapper.selectList(memberParam);
+		if (!CollectionUtils.isEmpty(list)) {
+			int i = 0;
+			for(MemberDto x: list) {
+				x.setTotalCount(totalCount);
+				x.setSeq(totalCount - memberParam.getPageStart() - i);
+				i++;
+			}
+		}
 		return list;
 		
 //		return memberRepository.findAll();

@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>관리자 화면</title>
+	<meta charset="UTF-8">
+	<title>관리자 화면</title>
+	<style>
+		.list table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.list table th, .list table td {
+			border: solid 1px #000;
+		}
+	</style>
 </head>
 <body>
 	<h1>관리자 회원 관리</h1>
@@ -17,7 +26,57 @@
 		|
 		<a href="/member/logout"> 로그아웃 </a>
 		<br/>
+		<hr/>
 	</div>
 	
+	<div class="list">
+	
+		<div th:text="${param.searchType}"></div>
+		<div th:text="${param.searchValue}"></div>
+		<div>
+			<form method="get">
+				<select name="searchType">
+					<option value="all">전체</option>
+					<option th:selected="${#strings.equals(param.searchType, 'userId')}" value="userId">아이디</option>
+					<option th:selected="${#strings.equals(param.searchType,'userName')}" value="userName">이름</option>
+					<option th:selected="${#strings.equals(param.searchType, 'phone')}" value="phone">연락처</option>
+				</select>
+				<input th:value="${param.searchValue}" type="text" name="searchValue"/>
+				<button type="submit">검색</button>
+			</form>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>NO</th>
+					<th>아이디(이메일)</th>
+					<th>이름</th>
+					<th>연락처</th>
+					<th>이메일 인증 여부</th>
+					<th>가입일</th>
+					<th>관리자여부</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="x : ${list}">
+					<td>1</td>
+					<td th:text="${x.userId}">kmh9250@naver.com</td>
+					<td th:text="${x.userName}">홍길동</td>
+					<td th:text="${x.phone}">010-1234-1234</td>
+					<td>
+						<p th:if="${x.emailAuthYn}">Y</p>
+						<p th:if="${x.emailAuthYn eq false}">N</p>
+					</td>
+					<td>
+						<p th:text="${x.createAt}">2021.01.01</p>
+					</td>
+					<td>
+						<p th:if="${x.adminYn}">Y</p>
+						<p th:if="${x.adminYn eq false}">N</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>		
+	</div>
 </body>
 </html>

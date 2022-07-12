@@ -20,7 +20,7 @@ import lombok.ToString;
 @Builder
 @Entity
 @ToString
-public class Member {
+public class Member implements MemberCode {
 	
 	@Id
 	private String userId;
@@ -38,4 +38,6 @@ public class Member {
 	private LocalDateTime resetPasswordLimitAt;
 	
 	private boolean adminYn;
+	
+	private String userStatus;
 }

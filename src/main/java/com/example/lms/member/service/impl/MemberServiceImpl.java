@@ -14,6 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import com.example.lms.admin.dto.MemberDto;
+import com.example.lms.admin.mapper.MemberMapper;
 import com.example.lms.components.MailComponents;
 import com.example.lms.member.domain.Member;
 import com.example.lms.member.exception.MemberNotEmailAuthException;
@@ -30,6 +32,7 @@ public class MemberServiceImpl implements MemberService {
 
 	private final MemberRepository memberRepository;
 	private final MailComponents mailComponents;
+	private final MemberMapper memberMapper;
 	
 	/**
 	 * 회원 가입
@@ -165,6 +168,16 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		return true;
+	}
+	
+	@Override
+	public List<MemberDto> list() {
+		
+		MemberDto memberDto = new MemberDto();
+		List<MemberDto> list = memberMapper.selectList(memberDto);
+		return list;
+		
+//		return memberRepository.findAll();
 	}
 	
 	@Override

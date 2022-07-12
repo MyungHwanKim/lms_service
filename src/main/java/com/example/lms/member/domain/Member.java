@@ -34,4 +34,6 @@ public class Member {
 	
 	private String resetPasswordKey;
 	private LocalDateTime resetPasswordLimitAt;
+	
+	private boolean adminYn;
 }

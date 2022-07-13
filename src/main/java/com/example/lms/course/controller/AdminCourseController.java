@@ -49,7 +49,7 @@ public class AdminCourseController extends BaseController {
 		return "admin/course/list";
 	}
 	
-	@GetMapping({"/admin/course/add.do", "/admin/course/edit.do"})
+	@GetMapping(value = {"/admin/course/add.do", "/admin/course/edit.do"})
 	public String add(Model model, 
 						HttpServletRequest request, 
 						CourseInput courseInput) 
@@ -77,7 +77,7 @@ public class AdminCourseController extends BaseController {
 		return "admin/course/add";
 	}
 	
-	@PostMapping({"/admin/course/add.do", "/admin/course/edit.do"})
+	@PostMapping(value = {"/admin/course/add.do", "/admin/course/edit.do"})
 	public String addSubmit(Model model, 
 							HttpServletRequest request, 
 							CourseInput courseInput) 
@@ -99,6 +99,17 @@ public class AdminCourseController extends BaseController {
 		} else {
 			boolean result = courseSerivce.add(courseInput);
 		}
+		
+		return "redirect:/admin/course/list.do";
+	}
+	
+	@PostMapping("/admin/course/delete.do")
+	public String del(Model model, 
+							HttpServletRequest request, 
+							CourseInput courseInput) 
+	{
+		
+		boolean result = courseSerivce.del(courseInput.getIdList());
 		
 		return "redirect:/admin/course/list.do";
 	}

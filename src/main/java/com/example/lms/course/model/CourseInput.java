@@ -16,4 +16,6 @@ public class CourseInput {
 	long price;
 	long salePrice;
 	String saleEndAtText;
+	
+	String idList;
 }

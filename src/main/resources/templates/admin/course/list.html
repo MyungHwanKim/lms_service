@@ -53,7 +53,9 @@
 				<tr th:each="x : ${list}">
 					<td th:text="${x.seq}">1</td>
 					<td>
-						<p th:text="${x.subject}"></p>
+						<p>
+							<a th:href="'edit.do?id=' + ${x.id}" th:text="${x.subject}">강좌명</a>
+						</p>
 					</td>
 					<td>
 						<p th:text="${x.createAt}">2022.01.01</p>

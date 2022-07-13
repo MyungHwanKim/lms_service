@@ -14,7 +14,17 @@ public interface CourseService {
 	boolean add(CourseInput courseInput);
 
 	/*
+	 * 강좌 정보 수정
+	 */
+	boolean set(CourseInput courseInput);
+	
+	/*
 	 * 강좌 목록
 	 */
 	List<CourseDto> list(CourseParam courseParam);
+
+	/*
+	 * 강좌 상세 정보
+	 */
+	CourseDto getById(long id);
 }

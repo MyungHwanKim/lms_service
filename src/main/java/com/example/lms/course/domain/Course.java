@@ -1,5 +1,6 @@
 package com.example.lms.course.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -27,6 +28,8 @@ public class Course {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long id;
 	
+	long categoryId;
+	
 	String imagePath;
 	String keyword;
 	String subject;
@@ -38,7 +41,7 @@ public class Course {
 	String content;
 	long price;
 	long salePrice;
-	LocalDateTime saleEndAt;
+	LocalDate saleEndAt;
 	
 	LocalDateTime createAt; // 등록일(추가날짜)
 	LocalDateTime updateAt; // 수정일(수정날짜)

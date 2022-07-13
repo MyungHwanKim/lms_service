@@ -1,13 +1,14 @@
 package com.example.lms.admin.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import com.example.lms.admin.domain.Category;
 import com.example.lms.admin.dto.CategoryDto;
+import com.example.lms.admin.model.CategoryInput;
 import com.example.lms.admin.repository.CategoryRepository;
 import com.example.lms.admin.service.CategoryService;
 
@@ -19,9 +20,13 @@ public class CategoryServiceImpl implements CategoryService {
 
 	private final CategoryRepository categoryRepository;
 	
+	private Sort getSortBySortValueDesc() {
+		return Sort.by(Sort.Direction.DESC, "sortValue");
+	}
+	
 	@Override
 	public List<CategoryDto> list() {		
-		List<Category> categories = categoryRepository.findAll();
+		List<Category> categories = categoryRepository.findAll(getSortBySortValueDesc());
 		return CategoryDto.of(categories);
 	}
 
@@ -40,14 +45,26 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public boolean update(CategoryDto categoryDto) {
+	public boolean update(CategoryInput categoryInput) {
 
-		return false;
+		Optional<Category> optionalCategory = categoryRepository.findById(categoryInput.getId());
+		
+		if (optionalCategory.isPresent()) {
+			
+			Category category = optionalCategory.get();
+			
+			category.setCategoryName(categoryInput.getCategoryName());
+			category.setSortValue(categoryInput.getSortValue());
+			category.setUsingYn(categoryInput.isUsingYn());
+			categoryRepository.save(category);
+		}
+		
+		return true;
 	}
 
 	@Override
-	public boolean del(long id) {
-
-		return false;
+	public boolean del(long id) {		
+		categoryRepository.deleteById(id);
+		return true;
 	}
 }

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>관리자 화면</title>
+	<style>
+		.list table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.list table th, .list table td {
+			border: solid 1px #000;
+		}
+		p.nothing {
+			text-align: center;
+			padding: 100px;
+		}
+		.pager {
+			margin-top: 10px;
+			text-align: center;
+		}
+		.pager a.on {
+			font-weight: bold;
+			color: red;
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function() {
+			
+		});
+	</script>
+</head>
+<body>
+	<h1>강좌 관리</h1>
+	<div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+	
+	<div>
+		<a href="/admin/course/add.do"> 강좌 등록 </a>
+	</div>
+	
+	<div class="list">
+
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>강좌명</th>
+					<th>등록일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="x : ${list}">
+					<td th:text="${x.seq}">1</td>
+					<td>
+						<p th:text="${x.subject}"></p>
+					</td>
+					<td>
+						<p th:text="${x.createAt}">2022.01.01</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div class="pager" th:utext="${pager}"></div>
+	</div>
+</body>
+</html>

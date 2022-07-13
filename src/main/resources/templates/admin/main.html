@@ -6,18 +6,7 @@
 </head>
 <body>
 	<h1>관리자 메인 화면</h1>
-	<div>
-		<a href="/admin/main.do"> 관리자 메인 </a>
-		|
-		<a href="/admin/member/list.do"> 회원 관리 </a>
-		|
-		<a href="#"> 카테고리 관리 </a>
-		|
-		<a href="#"> 강의 관리 </a>
-		|
-		<a href="/member/logout"> 로그아웃 </a>
-		<br/>
-	</div>
+	<div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
 	
 </body>
 </html>

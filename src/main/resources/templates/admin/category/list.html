@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>관리자 화면</title>
+	<style>
+		.list table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.list table th, .list table td {
+			border: solid 1px #000;
+		}
+	</style>
+</head>
+<body>
+	<h1>카테고리 관리</h1>
+	<div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
+	
+	<div class="list">
+	
+		<div>
+			<form method="post" action="/admin/category/add.do">
+				<input type="text" name="categoryName" required placeholder="카테고리명 입력"/>
+				<button type="submit">추가</button>
+			</form>
+		</div>
+
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>카테고리명</th>
+					<th>순서</th>
+					<th>사용여부</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="x : ${list}">
+					<td th:text="${x.id}">1</td>
+					<td th:text="${x.categoryName}">홍길동</td>
+					<td th:text="${x.sortValue}">010-1234-1234</td>
+					<td>
+						<p th:text="${x.usingYn}">2021.01.01</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>	
+	</div>
+</body>
+</html>

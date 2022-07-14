@@ -22,8 +22,7 @@ public class CourseController extends BaseController {
 	private final CategoryService categoryService;
 	
 	@GetMapping("/course")
-	public String course(Model model, CourseParam courseParam)
-	{
+	public String course(Model model, CourseParam courseParam) {
 	
 		List<CourseDto> list = courseSerivce.frontList(courseParam);
 		model.addAttribute("list", list);
@@ -43,4 +42,14 @@ public class CourseController extends BaseController {
 		
 		return "course/index";
 	}
+	
+	@GetMapping("/course/{id}")
+	public String courseDetail(Model model, CourseParam courseParam) {
+
+		CourseDto detail = courseSerivce.frontDetail(courseParam.getId());
+		model.addAttribute("detail", detail);
+		
+		return "course/detail";
+	}
+	
 }

@@ -8,6 +8,48 @@
 			text-decoration: line-through;
 		}
 	</style>
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script>
+		$(function() {
+			
+			$('#submitForm').on('submit', function() {
+				
+				if (!confirm('수강 신청을 하시겠습니까?')) {
+					return false;
+				}
+				
+				var $thisForm = $(this);
+				
+				var url = '/api/course/req.api';
+				var parameter = {
+					courseId: $thisForm.find('input[name=id]').val()
+				};
+				
+				axios.post(url, parameter).then(function(response) {
+					console.log(response);
+					console.log(response.data);
+					
+					response.data = response.data || {};
+					response.data.header = response.data.header || {};
+					
+					if (!response.data.header.result) {
+						alert(response.data.header.message);
+						return false;
+					}
+					
+					alert(' 강좌가 정상적으로 신청되었습니다. ');
+					location.href = '/';
+					
+				}).catch(function(err) {
+					console.log(err);
+				});
+				
+				return false;
+			});
+			
+		});
+	</script>
 </head>
 <body>
 	<h1> 강좌 상세 정보 </h1>
@@ -25,8 +67,11 @@
 		</div>
 	</div>
 	<div>
-		<button type="button">수강신청</button>
-		<a href="/course">강좌 목록</a>
+		<form id="submitForm" method="post">
+			<input type="hidden" name="id" th:value="${detail.id}"/>
+			<button type="submit">수강신청</button>
+			<a href="/course">강좌 목록</a>
+		</form>
 	</div>
 </body>
 </html>

@@ -5,6 +5,8 @@ import java.util.List;
 import com.example.lms.course.dto.CourseDto;
 import com.example.lms.course.model.CourseInput;
 import com.example.lms.course.model.CourseParam;
+import com.example.lms.course.model.ServiceResult;
+import com.example.lms.course.model.TakeCourseInput;
 
 public interface CourseService {
 
@@ -43,6 +45,11 @@ public interface CourseService {
 	 * 프론트 강좌 상세 정보
 	 */
 	CourseDto frontDetail(long id);
+
+	/*
+	 * 수강 신청
+	 */
+	ServiceResult req(TakeCourseInput takeCourseInput);
 
 
 }

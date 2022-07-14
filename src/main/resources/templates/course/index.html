@@ -14,6 +14,22 @@
 	
 	<div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
 	
+	<div>
+		<a href="?">
+			전체 (<span th:text="${courseTotalCount}">0</span>)
+		</a>
+		
+		<th:block th:each="y : ${categoryList}">
+			|
+			<a th:href="'/course?categoryId=' + ${y.id}">
+				<span th:text="${y.categoryName}">카테고리명</span>
+				(<span th:text="${y.courseCount}">0</span>)
+			</a>
+		</th:block>
+		<hr/>
+	</div>
+	
+	
 	<ul>
 		<li th:each="x : ${list}">
 			<div>

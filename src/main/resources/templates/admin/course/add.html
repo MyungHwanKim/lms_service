@@ -30,20 +30,21 @@
 	<script>
 		$(document).ready(function() {
 			
+			$('#submitForm').on('submit', function() {
+				
+				 // 에디터의 내용이 textarea에 적용된다.
+				 oEditors.getById["content"].exec("UPDATE_CONTENTS_FIELD", []);
+			});
 		});
 	</script>
 </head>
 <body>
-	<h1>강좌 관리 - 강좌 등록</h1>
 	<div th:replace="/fragments/layout.html :: fragment-admin-body-menu"></div>
 	
-	<div>
-		<a href="/admin/course/add.do"> 강좌 등록 </a>
-	</div>
-	
+	<h1>강좌 관리 - 강좌 등록</h1>
 	<div class="detail">
 
-		<form method="post">
+		<form id="submitForm" method="post">
 			<table>
 			<tbody>
 				<tr>
@@ -78,7 +79,7 @@
 						요약문구
 					</th>
 					<td>
-						<textarea th:text="${detail.summary}" type="text" name="summary" required placeholder="요약문구 입력"></textarea>
+						<textarea th:text="${detail.summary}" name="summary" required placeholder="요약문구 입력"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -86,7 +87,7 @@
 						내용
 					</th>
 					<td>
-						<textarea th:text="${detail.content}" type="text" name="content" required placeholder="내용 입력"></textarea>
+						<textarea th:text="${detail.content}" id="content" name="content" placeholder="내용 입력"></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -123,5 +124,17 @@
 			</div>
 		</form>
 	</div>
+	
+	<script type="text/javascript" src="/res/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+	
+	<script type="text/javascript">
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+		 oAppRef: oEditors,
+		 elPlaceHolder: "content",
+		 sSkinURI: "/res/se2/SmartEditor2Skin.html",
+		 fCreator: "createSEditor2"
+		});
+	</script>
 </body>
 </html>

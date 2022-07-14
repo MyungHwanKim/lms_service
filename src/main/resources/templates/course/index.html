@@ -10,7 +10,7 @@
 	</style>
 </head>
 <body>
-	<h1> 강좌 목록 </h1>
+	<h1> 강좌 정보 페이지 </h1>
 	
 	<div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
 	
@@ -33,7 +33,7 @@
 	<ul>
 		<li th:each="x : ${list}">
 			<div>
-				<a th:href="'/course/' + ${x.id}">
+				<a th:href="'/course' + ${x.id}">
 					<h3 th:text="${x.subject}">강좌명</h3>
 				</a>
 				<div>

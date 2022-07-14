@@ -2,6 +2,8 @@ package com.example.lms.course.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -16,12 +18,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class CourseDto {
 
 	long id;
@@ -55,5 +59,18 @@ public class CourseDto {
 						.createAt(course.getCreateAt())
 						.updateAt(course.getUpdateAt())
 						.build();
+	}
+
+	public static List<CourseDto> of(List<Course> courseList) {
+		
+		if (courseList == null) {
+			return null;
+		}
+		
+		List<CourseDto> courseDtoList = new ArrayList<>();
+		for(Course x: courseList) {
+			courseDtoList.add(CourseDto.of(x));
+		}
+		return courseDtoList;
 	}
 }

@@ -62,7 +62,7 @@
 							</div>
 							<div>
 								<input id="addr" name="addr" type="text" th:value="${detail.addr}" readonly placeholder="주소 입력"/>
-								<input id="addrDetail" name="addrDetail" type="text" th:value="${detail.addrDetail}" readonly placeholder="주소 상세내용 입력"/>
+								<input id="addrDetail" name="addrDetail" type="text" th:value="${detail.addrDetail}" placeholder="주소 상세내용 입력"/>
 							</div>
 						</td>
 					</tr>
@@ -82,7 +82,8 @@
 			</table>
 			
 			<div>
-				<button type="submit">수정</button>
+				<button type="submit">수정</button>			
+				<a href="/member/withdraw"> 회원 탈퇴 </a>
 			</div>
 		</form>
 	</div>

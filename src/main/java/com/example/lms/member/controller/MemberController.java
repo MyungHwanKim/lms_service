@@ -20,6 +20,7 @@ import com.example.lms.course.service.TakeCourseService;
 import com.example.lms.member.model.MemberInput;
 import com.example.lms.member.model.ResetPasswordInput;
 import com.example.lms.member.service.MemberService;
+import com.example.lms.util.PasswordUtils;
 
 import lombok.RequiredArgsConstructor;
 
@@ -150,6 +151,28 @@ public class MemberController {
 		model.addAttribute("list", list);
 		
 		return "member/takecourse";
+	}
+	
+	@GetMapping("/member/withdraw")
+	public String memberWithdraw(Model model) {
+		
+		return "member/withdraw";
+	}
+	
+	@PostMapping("/member/withdraw")
+	public String memberWithdrawSubmit(Model model, 
+			MemberInput memberInput,
+			Principal principal) {
+		
+		String userId = principal.getName();
+		
+		ServiceResult result = memberService.withdraw(userId, memberInput.getPassword());
+		if (!result.isResult()) {
+			model.addAttribute("message", result.getMessage());
+			return "common/error";
+		}
+		
+		return "redirect:/member/logout";
 	}
 	
 	@GetMapping("/member/reset/password")

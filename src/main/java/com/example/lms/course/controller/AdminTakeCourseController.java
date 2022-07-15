@@ -2,22 +2,15 @@ package com.example.lms.course.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.example.lms.admin.service.CategoryService;
-import com.example.lms.course.dto.CourseDto;
 import com.example.lms.course.dto.TakeCourseDto;
-import com.example.lms.course.model.CourseInput;
-import com.example.lms.course.model.CourseParam;
 import com.example.lms.course.model.ServiceResult;
 import com.example.lms.course.model.TakeCourseParam;
-import com.example.lms.course.service.CourseService;
 import com.example.lms.course.service.TakeCourseService;
 
 import lombok.RequiredArgsConstructor;

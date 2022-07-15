@@ -5,12 +5,15 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.lms.course.dto.CourseDto;
 import com.example.lms.course.dto.TakeCourseDto;
 import com.example.lms.course.model.ServiceResult;
 import com.example.lms.course.model.TakeCourseParam;
+import com.example.lms.course.service.CourseService;
 import com.example.lms.course.service.TakeCourseService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,10 +22,15 @@ import lombok.RequiredArgsConstructor;
 @Controller
 public class AdminTakeCourseController extends BaseController {
 
+	private final CourseService courseService;
 	private final TakeCourseService takeCourseSerivce;
 	
 	@GetMapping("/admin/takecourse/list.do")
-	public String list(Model model, TakeCourseParam takeCourseParam) {
+	public String list(Model model, 
+			TakeCourseParam takeCourseParam,
+			BindingResult bindingResult) {
+		
+		
 		
 		takeCourseParam.init();
 		List<TakeCourseDto> takeCourseList = takeCourseSerivce.list(takeCourseParam);
@@ -41,6 +49,9 @@ public class AdminTakeCourseController extends BaseController {
 		model.addAttribute("list", takeCourseList);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("pager", pageHtml);
+		
+		List<CourseDto> courseDtoList = courseService.listAll();
+		model.addAttribute("courseDtoList", courseDtoList);
 		
 		return "admin/takecourse/list";
 	}

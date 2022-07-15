@@ -52,6 +52,13 @@
 	<script>
 		$(document).ready(function() {
 			
+			$('#searchCourseId').on('change', function() {
+				
+				var id = $(this).val();
+				
+				location.href = "?searchCourseId=" + id;
+			});
+			
 			$('.row-buttons button').on('click', function() {
 
 				var status = $(this).val();
@@ -77,6 +84,14 @@
 		
 	<div class="list">
 		<div class="buttons">
+			<select id="searchCourseId">
+				<option value="">전체 강좌</option>
+				<option th:each="x : ${courseDtoList}" 
+						th:selected="${#strings.equals(param.searchCourseId, x.id)}"
+						th:value="${x.id}" 
+						th:text="${x.subject}">자바 프로그래밍</option>
+			</select>
+		
 			<p class="total-count">전체 <span th:text="${totalCount}"></span>개</p>
 		</div>
 
@@ -125,10 +140,15 @@
 					</td>
 					
 				</tr>
+				<tr th:if="${#lists.size(list) < 1}">
+					<td colspan="8">
+						<p class="nothing">내용이 없습니다.</p>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 		
-		<div class="pager" th:utext="${pager}"></div>
+		<div class="pager" th:if="${#lists.size(list) > 0}" th:utext="${pager}"></div>
 	</div>
 	
 	<form id="procForm" method="post" action="/admin/takecourse/status.do">

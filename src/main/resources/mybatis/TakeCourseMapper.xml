@@ -5,15 +5,20 @@
 <mapper namespace="com.example.lms.course.mapper.TakeCourseMapper">
 	
 	<sql id="selectListWhere">
-		
+		<if test="searchCourseId > 0">
+    		
+    		and c.id = #{searchCourseId}
+	  	</if>
 	</sql>
 		
 	
 	<select id="selectListCount" resultType="long">
   			
-	SELECT count(*)
-	FROM TAkE_COURSE
-	where 1 = 1
+		SELECT count(*)
+		FROM TAKE_COURSE tc
+			JOIN COURSE C ON tc.COURSE_ID = C.ID
+			JOIN `member` m ON tc.USER_ID = m.USER_ID 
+		where 1 = 1
 		<include refid="selectListWhere"/>
 	</select>
 	

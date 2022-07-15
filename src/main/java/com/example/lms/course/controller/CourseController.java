@@ -26,7 +26,7 @@ public class CourseController extends BaseController {
 	
 		List<CourseDto> list = courseSerivce.frontList(courseParam);
 		model.addAttribute("list", list);
-		
+
 		int courseTotalCount = 0;
 		List<CategoryDto> categoryList = 
 				categoryService.frontList(CategoryDto.builder().build());

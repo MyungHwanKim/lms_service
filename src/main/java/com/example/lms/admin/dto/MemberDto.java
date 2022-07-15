@@ -1,6 +1,7 @@
 package com.example.lms.admin.dto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.example.lms.member.domain.Member;
 
@@ -23,7 +24,8 @@ public class MemberDto {
 	String userName;
 	String phone;
 	String password;
-	LocalDateTime createAt; 
+	LocalDateTime createAt;
+	LocalDateTime updateAt;
 	
 	boolean emailAuthYn;
 	LocalDateTime emailAuthAt;
@@ -46,6 +48,7 @@ public class MemberDto {
                 .phone(member.getPhone())
                 //.password(member.getPassword())
                 .createAt(member.getCreateAt())
+                .updateAt(member.getUpdateAt())
                 .emailAuthYn(member.isEmailAuthYn())
                 .emailAuthAt(member.getEmailAuthAt())
                 .eamilAuthKey(member.getEamilAuthKey())
@@ -55,4 +58,16 @@ public class MemberDto {
                 .userStatus(member.getUserStatus())
                 .build();
     }
+    
+    public String getCreateAtText() {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+		return createAt != null ? createAt.format(formatter) : "";
+	}
+    
+    public String getUpdateAtText() {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+		return updateAt != null ? updateAt.format(formatter) : "";
+	}
 }

@@ -1,5 +1,7 @@
 package com.example.lms.member.controller;
 
+import java.security.Principal;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.lms.admin.dto.MemberDto;
+import com.example.lms.course.model.ServiceResult;
 import com.example.lms.member.model.MemberInput;
 import com.example.lms.member.model.ResetPasswordInput;
 import com.example.lms.member.service.MemberService;
@@ -77,8 +81,53 @@ public class MemberController {
 	}
 	
 	@GetMapping("/member/info")
-	public String memberInfo() {
+	public String memberInfo(Model model, Principal principal) {
+		
+		String userId = principal.getName();
+		
+		MemberDto detail = memberService.detail(userId);
+		model.addAttribute("detail", detail);
+		
 		return "member/info";
+	}
+	
+	@GetMapping("/member/password")
+	public String memberPassword(Model model, Principal principal) {
+		
+		String userId = principal.getName();
+		
+		MemberDto detail = memberService.detail(userId);
+		model.addAttribute("detail", detail);
+		
+		return "member/password";
+	}
+	
+	@PostMapping("/member/password")
+	public String memberPasswordSubmit(Model model, 
+			MemberInput memberInput,
+			Principal principal) {
+		
+		String userId = principal.getName();
+		memberInput.setUserId(userId);
+		
+		ServiceResult result = memberService.updateMemberPassword(memberInput);
+		if (!result.isResult()) {
+			model.addAttribute("message", result.getMessage());
+			return "common/error";
+		}
+		
+		return "redirect:/member/info";
+	}
+	
+	@GetMapping("/member/takecourse")
+	public String memberTakeCourse(Model model, Principal principal) {
+		
+		String userId = principal.getName();
+		
+		MemberDto detail = memberService.detail(userId);
+		model.addAttribute("detail", detail);
+		
+		return "member/takecourse";
 	}
 	
 	@GetMapping("/member/reset/password")

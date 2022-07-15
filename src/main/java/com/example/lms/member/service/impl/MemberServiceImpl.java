@@ -19,6 +19,7 @@ import com.example.lms.admin.dto.MemberDto;
 import com.example.lms.admin.mapper.MemberMapper;
 import com.example.lms.admin.model.MemberParam;
 import com.example.lms.components.MailComponents;
+import com.example.lms.course.model.ServiceResult;
 import com.example.lms.member.domain.Member;
 import com.example.lms.member.exception.MemberNotEmailAuthException;
 import com.example.lms.member.exception.MemberStopUserException;
@@ -223,6 +224,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Override
 	public boolean updatePassword(String userId, String password) {
+		
 		Optional<Member> optionalMemeber = memberRepository.findById(userId);
 		if (!optionalMemeber.isPresent()) {
 			throw new UsernameNotFoundException("회원 정보가 존재하지 않습니다.");
@@ -235,6 +237,29 @@ public class MemberServiceImpl implements MemberService {
 		memberRepository.save(member);
 		
 		return true;
+	}
+
+	@Override
+	public ServiceResult updateMemberPassword(MemberInput memberInput) {
+
+		String userId = memberInput.getUserId();
+		
+		Optional<Member> optionalMemeber = memberRepository.findById(userId);
+		if (!optionalMemeber.isPresent()) {
+			return new ServiceResult(false, "회원 정보가 존재하지 않습니다.");
+		}
+		
+		Member member = optionalMemeber.get();
+		
+		if (!BCrypt.checkpw(memberInput.getPassword(), member.getPassword())) {
+			return new ServiceResult(false, "비밀번호가 일치하지 않습니다.");
+		}
+		
+		String encPassword = BCrypt.hashpw(memberInput.getNewPassword(), BCrypt.gensalt());
+		member.setPassword(encPassword);
+		memberRepository.save(member);
+		
+		return new ServiceResult(true);
 	}
 	
 	@Override

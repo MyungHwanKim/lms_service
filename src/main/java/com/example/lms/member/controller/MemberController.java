@@ -1,6 +1,7 @@
 package com.example.lms.member.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.lms.admin.dto.MemberDto;
+import com.example.lms.course.dto.TakeCourseDto;
 import com.example.lms.course.model.ServiceResult;
+import com.example.lms.course.service.TakeCourseService;
 import com.example.lms.member.model.MemberInput;
 import com.example.lms.member.model.ResetPasswordInput;
 import com.example.lms.member.service.MemberService;
@@ -25,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class MemberController {
 	
 	private final MemberService memberService;
+	private final TakeCourseService takeCourseService;
 
 	@RequestMapping("/member/login")
 	public String login() {	
@@ -141,9 +145,9 @@ public class MemberController {
 	public String memberTakeCourse(Model model, Principal principal) {
 		
 		String userId = principal.getName();
+		List<TakeCourseDto> list = takeCourseService.myCourse(userId);
 		
-		MemberDto detail = memberService.detail(userId);
-		model.addAttribute("detail", detail);
+		model.addAttribute("list", list);
 		
 		return "member/takecourse";
 	}

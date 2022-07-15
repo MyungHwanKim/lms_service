@@ -11,4 +11,6 @@ import com.example.lms.course.model.TakeCourseParam;
 public interface TakeCourseMapper {
 	long selectListCount(TakeCourseParam takeCourseParam);
 	List<TakeCourseDto> selectList(TakeCourseParam takeCourseParam);
+	
+	List<TakeCourseDto> selectListMyCourse(TakeCourseParam takeCourseParam);
 }

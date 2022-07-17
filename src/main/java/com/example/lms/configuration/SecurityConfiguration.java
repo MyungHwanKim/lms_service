@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.example.lms.admin.mapper.MemberMapper;
+import com.example.lms.member.service.MemberHistoryService;
 import com.example.lms.member.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private final MemberService memberService;
 	private final MemberMapper memberMapper;
+	private final MemberHistoryService memberHistoryService;
 	
 	@Bean
 	PasswordEncoder getPasswordEncoder() {
@@ -36,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Bean
 	UserAuthenticationSuccessHandler getSucessHandler() {
-		return new UserAuthenticationSuccessHandler(memberMapper);
+		return new UserAuthenticationSuccessHandler(memberMapper, memberHistoryService);
 	}
 	
 	@Override

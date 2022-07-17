@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.lms.admin.dto.MemberDto;
+import com.example.lms.admin.dto.MemberHistoryDto;
 import com.example.lms.admin.model.MemberInput;
 import com.example.lms.admin.model.MemberParam;
 import com.example.lms.course.controller.BaseController;
+import com.example.lms.member.service.MemberHistoryService;
 import com.example.lms.member.service.MemberService;
 import com.example.lms.util.PageUtil;
 
@@ -21,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminMemberController extends BaseController {
 	
 	private final MemberService memberService;
+	private final MemberHistoryService memberHistoryService;
 
 	@GetMapping("/admin/member/list.do")
 	public String list(Model model, MemberParam memberParam) {
@@ -52,6 +55,10 @@ public class AdminMemberController extends BaseController {
 		
 		MemberDto member = memberService.detail(memberParam.getUserId());
 		model.addAttribute("member", member);
+		
+		List<MemberHistoryDto> memberHistoryDtoList = 
+				memberHistoryService.myHistoryList(memberParam);
+		model.addAttribute("memberHistoryDtoList", memberHistoryDtoList);
 		
 		return "admin/member/detail";
 	}

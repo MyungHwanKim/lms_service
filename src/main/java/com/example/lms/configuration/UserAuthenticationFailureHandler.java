@@ -26,8 +26,6 @@ public class UserAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 		setDefaultFailureUrl("/member/login?error=true");
 		request.setAttribute("errorMessage", msg);
 		
-		System.out.println("로그인에 실패하였습니다.");
-		
 		super.onAuthenticationFailure(request, response, exception);
 	}
 

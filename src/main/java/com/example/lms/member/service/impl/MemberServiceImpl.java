@@ -191,6 +191,7 @@ public class MemberServiceImpl implements MemberService {
 				i++;
 			}
 		}
+		
 		return list;
 		
 //		return memberRepository.findAll();

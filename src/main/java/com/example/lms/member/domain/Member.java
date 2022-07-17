@@ -45,4 +45,6 @@ public class Member implements MemberCode {
 	private String zipcode;
 	private String addr;
 	private String addrDetail;
+	
+	private LocalDateTime lastLoginAt;
 }

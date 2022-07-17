@@ -1,5 +1,6 @@
 package com.example.lms.admin.mapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -12,4 +13,5 @@ public interface MemberMapper {
 
 	long selectListCount(MemberParam memberParam);
 	List<MemberDto> selectList(MemberParam memberParam);
+	int updateLoginAt(String userId, LocalDateTime lastLoginAt);
 }

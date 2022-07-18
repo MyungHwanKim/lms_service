@@ -11,4 +11,11 @@
 		ORDER BY mh.login_at DESC
 	
 	</select>
+	
+	<select id="selectListCount" resultType="long">
+  			
+	SELECT count(*)
+	FROM MEMBER_HISTORY
+	where user_id = #{userId}
+	</select>
 </mapper>

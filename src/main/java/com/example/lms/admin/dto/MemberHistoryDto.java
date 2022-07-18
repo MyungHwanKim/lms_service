@@ -22,6 +22,9 @@ public class MemberHistoryDto {
 	String userIp;
 	String userAgent;
 	
+	long totalCount;
+	long seq;
+	
 	public String getLoginAtText() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
 		return loginAt != null ? loginAt.format(formatter) : "";

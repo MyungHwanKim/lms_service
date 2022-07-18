@@ -1,7 +1,6 @@
 package com.example.lms.course.controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -32,14 +31,14 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class AdminCourseController extends BaseController {
 
-	private final CourseService courseSerivce;
+	private final CourseService courseService;
 	private final CategoryService categoryService;
 	
 	@GetMapping("/admin/course/list.do")
 	public String list(Model model, CourseParam courseParam) {
 		
 		courseParam.init();
-		List<CourseDto> courseList = courseSerivce.list(courseParam);
+		List<CourseDto> courseList = courseService.list(courseParam);
 		
 		long totalCount = 0;
 		if (!CollectionUtils.isEmpty(courseList)) {
@@ -73,7 +72,7 @@ public class AdminCourseController extends BaseController {
 		if (editMode) {
 			long id = courseInput.getId();
 			
-			CourseDto existCourse = courseSerivce.getById(id);
+			CourseDto existCourse = courseService.getById(id);
 			
 			if (existCourse == null) {
 				model.addAttribute("message", "강좌 정보가 존재하지 않습니다.");
@@ -172,15 +171,15 @@ public class AdminCourseController extends BaseController {
 		if (editMode) {
 			long id = courseInput.getId();
 			
-			CourseDto existCourse = courseSerivce.getById(id);
+			CourseDto existCourse = courseService.getById(id);
 			
 			if (existCourse == null) {
 				model.addAttribute("message", "강좌 정보가 존재하지 않습니다.");
 				return "common/error";
 			}
-			boolean result = courseSerivce.set(courseInput);
+			boolean result = courseService.set(courseInput);
 		} else {
-			boolean result = courseSerivce.add(courseInput);
+			boolean result = courseService.add(courseInput);
 		}
 		
 		return "redirect:/admin/course/list.do";
@@ -192,7 +191,7 @@ public class AdminCourseController extends BaseController {
 							CourseInput courseInput) 
 	{
 		
-		boolean result = courseSerivce.del(courseInput.getIdList());
+		boolean result = courseService.del(courseInput.getIdList());
 		
 		return "redirect:/admin/course/list.do";
 	}

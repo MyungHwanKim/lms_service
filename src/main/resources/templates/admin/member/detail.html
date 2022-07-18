@@ -120,7 +120,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="myHistory : ${memberHistoryDtoList}">
-					<td th:text="${myHistory.id}">1</td>
+					<td th:text="${myHistory.seq}">1</td>
 					<td th:text="${myHistory.loginAtText}">2022.01.01</td>
 					<td th:text="${myHistory.userIp}">127.0.0.1</td>
 					<td th:text="${myHistory.userAgent}">windows</td>

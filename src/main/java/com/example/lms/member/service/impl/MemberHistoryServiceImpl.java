@@ -9,6 +9,8 @@ import com.example.lms.admin.dto.MemberDto;
 import com.example.lms.admin.dto.MemberHistoryDto;
 import com.example.lms.admin.mapper.MemberHistoryMapper;
 import com.example.lms.admin.model.MemberParam;
+import com.example.lms.banner.dto.BannerDto;
+import com.example.lms.banner.model.BannerParam;
 import com.example.lms.member.domain.MemberHistory;
 import com.example.lms.member.model.MemberHistoryInput;
 import com.example.lms.member.repository.MemberHistoryRepository;
@@ -36,11 +38,19 @@ public class MemberHistoryServiceImpl implements MemberHistoryService {
 		return true;
 	}
 	@Override
-	public List<MemberHistoryDto> myHistoryList(MemberParam memberParam) {		
-		return memberHistoryMapper.selectListMyHistory(memberParam.getUserId());
+	public List<MemberHistoryDto> myHistoryList(MemberParam memberParam) {	
+		long totalCount = memberHistoryMapper.selectListCount(memberParam.getUserId());
+		List<MemberHistoryDto> list = memberHistoryMapper.selectListMyHistory(
+												memberParam.getUserId());
+				
+		if (!CollectionUtils.isEmpty(list)) {
+			int i = 0;
+			for(MemberHistoryDto x: list) {
+				x.setTotalCount(totalCount);
+				x.setSeq(totalCount - memberParam.getPageStart() - i);
+				i++;
+			}
+		}
+		return list;
 	}
-
-
-	
-	
 }

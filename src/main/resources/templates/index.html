@@ -1,17 +1,64 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title> Main LMS </title>
+	<meta charset="UTF-8">
+	<title> Main LMS </title>
+	<style>
+		.main-banner {
+			text-align: center;
+		}
+	</style>
+	<script>
+		var index = 0;
+
+	    window.onload = function(){
+	        slideShow();
+	    }
+	    
+	    function slideShow() {
+	    var i;
+	    var x = document.getElementsByClassName("main-banner");
+	    var dots = document.getElementsByClassName("list-button-item");
+
+	    for (i = 0; i < x.length; i++) {
+	       x[i].style.display = "none";
+	    }
+	    index++;
+	    if (index > x.length) {
+	        index = 1;
+	    }   
+
+	    x[index-1].style.display = "block";
+
+	    setTimeout(slideShow, 4000);
+	 
+		}
+	</script>
+	
 </head>
 <body>
 	<h1> Main LMS </h1>
 	
 	<div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
-	
-	<div>
-		<img src="/files/2022/07/16/8f85120b80c34460934a6d7b58407615.png"/>
-	</div>
-	
+
+		
+
+		<div class="main-banner" th:each="x : ${list}">
+			<div th:if="${x.fileDirectory == null}">
+				<p th:text="${x.alterText"></p>
+				<a th:if="${x.open == 0}" th:href="${x.url}"></a>
+				<a th:if="${x.open != 0}" th:href="${x.url}" target="_blank"></a>
+			</div>
+			
+			<div th:if="${x.fileDirectory != null}">
+				<a th:if="${x.open == 0}" th:href="${x.url}">
+					<img th:src="${x.fileDirectory}" width="70%">
+				</a>
+					
+				<a th:if="${x.open != 0}" th:href="${x.url}" target="_blank">
+					<img th:src="${x.fileDirectory}" width="70%">
+				</a>		
+			</div>
+		</div>
 </body>
 </html>

@@ -2,12 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<title> Main LMS </title>
-	<style>
-		.main-banner {
-			text-align: center;
-		}
-	</style>
+	<title> LMS Campus </title>
+	<link rel="stylesheet" href="/css/style.css">
 	<script>
 		var index = 0;
 
@@ -37,15 +33,10 @@
 	
 </head>
 <body>
-	<h1> Main LMS </h1>
-	
 	<div th:replace="/fragments/layout.html :: fragment-body-menu"></div>
-
-		
-
 		<div class="main-banner" th:each="x : ${list}">
 			<div th:if="${x.fileDirectory == null}">
-				<p th:text="${x.alterText"></p>
+				<p th:text="${x.alterText}"></p>
 				<a th:if="${x.open == 0}" th:href="${x.url}"></a>
 				<a th:if="${x.open != 0}" th:href="${x.url}" target="_blank"></a>
 			</div>

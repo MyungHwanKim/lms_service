@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>lms</title>
+	<meta charset="UTF-8">
+	<title>lms</title>
+	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 	
 	<div th:fragment="fragment-body-menu">
-		<div>
-			<a href="/"> 메인 </a>
-			|
-			<a href="/member/register"> 회원 가입 </a>
-			|
-			<a href="/member/info"> 회원 정보 </a>
-			|
-			<a href="/course"> 강좌 목록 </a>
-			|
-			<a href="/member/login"> 로그인 </a>
-			|
-			<a href="/member/logout"> 로그아웃 </a>
-		</div>
-		<hr/>
+		<header class="main">
+			<h1>LMS Campus</h1>
+			<div>
+				<a href="/"> HOME </a>
+				|
+				<a href="/member/login"> 로그인 </a>
+				|
+				<a href="/member/logout"> 로그아웃 </a>
+			</div>
+			<ul class="menu">
+				<li>
+					<a href="#">MENU</a>
+					<ul class="submenu">
+						<li><a href="/member/register"> 회원 가입 </a></li>
+						<li><a href="/member/info"> 회원 정보 </a></li>
+						<li><a href="/course"> 강좌 목록 </a></li>
+					</ul>
+				</li>
+			</ul>
+		</header>
 	</div>
 
 	<div th:fragment="fragment-admin-body-menu">

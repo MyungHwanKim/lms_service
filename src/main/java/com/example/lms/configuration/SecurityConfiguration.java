@@ -37,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Bean
-	UserAuthenticationSuccessHandler getSucessHandler() {
+	UserAuthenticationSuccessHandler getSuccessHandler() {
 		return new UserAuthenticationSuccessHandler(memberMapper, memberHistoryService);
 	}
 	
@@ -58,7 +58,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 					"/member/register", 
 					"/member/email-auth",
 					"/member/find-password",
-					"/member/reset/password")
+					"/member/reset/password",
+					"/css/**")
 			.permitAll();
 		
 		http.authorizeRequests()
@@ -67,7 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		http.formLogin()
 			.loginPage("/member/login")
-			.successHandler(getSucessHandler())
+			.successHandler(getSuccessHandler())
 			.failureHandler(getFailureHandler())
 			.permitAll();
 			
